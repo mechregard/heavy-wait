@@ -35,17 +35,17 @@ A list of up to 3 supporting links based on the content of your markdown
 ```
 
 ## Usage
-To call `heavywait` you need an OpenAI API key. Set the following ENV vars:
+To call `heavy-wait` you need an OpenAI API key. Set the following ENV vars:
 
 - OPENAI_API_KEY
 - OPENAI_ORG
 
-The `heavywait` CLI is called `hw`. Use `--help` for usage:
+The `heavy-wait` CLI is called `hw`. Use `--help` for usage:
 
 ```
 Usage: hw [OPTIONS] COMMAND [ARGS]...
 
-  Heavywait is a CLI for decorating markdown files or directories of markdown
+  hw is a CLI for decorating markdown files or directories of markdown
   files with AI generated metadata
 
 Options:
@@ -88,11 +88,6 @@ The following frameworks and tools enable Heavy-wait:
 2. Make changes and test
 3. Submit Pull Request with comprehensive description of changes
 
-#### Details
-Config pypi test repo:
-```
-poetry config repositories.test-pypi https://test.pypi.org/legacy/
-```
 
 ## Donations
 This is free, open-source software. 
