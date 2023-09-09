@@ -11,13 +11,15 @@ classifiers = [
 include = ["LICENSE",]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-langchain = "^0.0.192"
+python = "^3.10"
+#langchain = "^0.0.192"
+langchain = "*"
 openai = "*"
 click = "*"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.1.3"
+#pytest = "^7.1.3"
+pytest = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -29,3 +31,9 @@ hw = "heavywait.cli:cli"
 [[tool.poetry.source]]
 name = "test-pypi"
 url = "https://test.pypi.org/simple"
+priority = "supplemental"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+

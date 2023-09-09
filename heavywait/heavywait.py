@@ -23,7 +23,8 @@ class HeavyWait:
     Makes use of OpenAI API
     TODO support on-prem model
     """
-    BASE_MODEL = "text-davinci-003"
+    #BASE_MODEL = "text-davinci-003"
+    BASE_MODEL = "gpt-4"
     CHAT_MODEL = "gpt-3.5-turbo"
 
     def __init__(self, llm: Optional[object] = None):
@@ -31,16 +32,18 @@ class HeavyWait:
         External llm can be a mock for testing
         :param llm:
         """
-        openai.organization = os.getenv('OPENAI_ORG', 'gbgsd')
+        openai.organization = os.getenv("OPENAI_ORG")
         openai.api_key = os.getenv("OPENAI_API_KEY")
+        api = os.getenv("OPENAI_API_KEY")
+        print(api)
         logging.basicConfig(format='%(levelname)s %(asctime)s %(module)s: %(message)s',
                             datefmt='%Y-%m-%d,%H:%M:%S',
                             level=logging.WARN)
         self.llm_map = {
             Prompts.MOOD_STRICT:
-                OpenAI(model_name=HeavyWait.BASE_MODEL, temperature=0.1) if llm is None else llm,
+                OpenAI(openai_api_key=api, model_name=HeavyWait.BASE_MODEL, temperature=0.1) if llm is None else llm,
             Prompts.MOOD_EXPRESSIVE:
-                OpenAI(model_name=HeavyWait.BASE_MODEL, temperature=0.8) if llm is None else llm
+                OpenAI(openai_api_key=api, model_name=HeavyWait.BASE_MODEL, temperature=0.8) if llm is None else llm
         }
 
     def directory(self, src: Path, dst: Path):
