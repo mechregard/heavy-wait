@@ -42,22 +42,32 @@ class LabelParsing(object):
     @staticmethod
     def get_c1() -> (str, str):
         return Prompts.MOOD_EXPRESSIVE, """
-        What is the genre/category of the following text delimited by triple backticks? 
-        Assign one or more appropriate categories/genres using the following:
-         
-        'research': for SOTA papers, machine learning algorithms, deep learning algorithms, statistical algorithms
-        'code': for software algorithms, software examples, heuristics and methods, software framework, software package, software library
-        'security': for security issues, hacking, injections, malware, authentication, authorization
-        'mlops': for mlops and devops tools or frameworks used for managing andd deploying ML models, versioning and managing data
-        'analysis': for notes and discussions, analysis and investigation into a speific topic
+What is the genre/category of the following text delimited by triple backticks? 
+Assign one or more appropriate categories/genres using the following:
+ 
+'research': for SOTA papers, machine learning algorithms, deep learning algorithms, statistical algorithms
+'code': for software algorithms, software examples, heuristics and methods, software framework, software package, software library
+'security': for security issues, hacking, injections, malware, authentication, authorization
+'mlops': for mlops and devops tools or frameworks used for managing andd deploying ML models, versioning and managing data
+'analysis': for notes and discussions, analysis and investigation into a specific topic
 
-         ```{text}```
-        """
+ ```{text}```
+"""
+
+    @staticmethod
+    def get_strict() -> (str, str):
+        return Prompts.MOOD_EXPRESSIVE, """
+The following text delimited by triple backticks is a blog post
+```{text}```
+Select one or two labels which best categorize the blog post and output as CSV.
+The labels you select must exist in the following list:
+['research','code','security','mlops','algorithms','links','analysis','planning','ideas']
+"""
 
     def parse_output(self, markdown: str):
         hw = HeavyWait()
-        llm = hw.llm_map[LabelParsing.get_labels_prompt()[0]]
-        prompt = PromptTemplate.from_template(LabelParsing.get_labels_prompt()[1])
+        llm = hw.llm_map[LabelParsing.get_strict()[0]]
+        prompt = PromptTemplate.from_template(LabelParsing.get_strict()[1])
         chain = LLMChain(llm=llm, prompt=prompt, output_key="labels")
         input = [{"text": markdown}]
         print(chain.generate(input))
